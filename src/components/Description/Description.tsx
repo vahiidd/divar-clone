@@ -68,37 +68,47 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Description = () => {
+interface descriptionType {
+  title: string;
+  description: string;
+}
+
+const Description: React.FC<descriptionType> = ({ title, description }) => {
   const classes = useStyles();
   return (
-				<>
-          <Box className={classes.description}>
-            <Typography variant="h1" className={classes.descriptionHeader}>
-              کتونی ریبوک جی ال ۶۰۰۰ ویتنام سایز ۳۷
-            </Typography>
-            <Typography variant="h5" className={classes.descriptionHelper}>
-              دقایقی پیش در کرج
-            </Typography>
-            <Box className={classes.buttons}>
-              <Button variant="contained" className={classes.infoBtn}>
-                اطلاعات تماس
-              </Button>
-              <Button variant="outlined" className={classes.chatBtn}>
-                چت
-              </Button>
-              <Box className={classes.socialMedia}>
-                <IconButton>
-                  <BookmarkBorderIcon style={{ fontSize: '.9em' }} />
-                </IconButton>
-                <IconButton>
-                  <ShareIcon style={{ fontSize: '.9em' }} />
-                </IconButton>
-              </Box>
-            </Box>
+    <>
+      <Box className={classes.description}>
+        <Typography variant='h1' className={classes.descriptionHeader}>
+          {title}
+        </Typography>
+        <Typography variant='h5' className={classes.descriptionHelper}>
+          دقایقی پیش در کرج
+        </Typography>
+        <Box className={classes.buttons}>
+          <Button variant='contained' className={classes.infoBtn}>
+            اطلاعات تماس
+          </Button>
+          <Button variant='outlined' className={classes.chatBtn}>
+            چت
+          </Button>
+          <Box className={classes.socialMedia}>
+            <IconButton>
+              <BookmarkBorderIcon style={{ fontSize: '.9em' }} />
+            </IconButton>
+            <IconButton>
+              <ShareIcon style={{ fontSize: '.9em' }} />
+            </IconButton>
           </Box>
-				</>
+        </Box>
+        <Typography
+          style={{ fontSize: '15px', fontFamily: 'Vazir', fontWeight: 'bold' }}
+        >
+          توضیحات
+        </Typography>
+        <Typography>{description}</Typography>
+      </Box>
+    </>
   );
 };
 
 export default Description;
-

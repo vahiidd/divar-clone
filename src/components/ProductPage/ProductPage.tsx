@@ -1,5 +1,5 @@
 import { Box, Button, createStyles, Theme } from '@material-ui/core';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import CustomSeparator from '../Breadcrumbs/CustomSeparator';
 import MapLocation from '../MapLocation/MapLocation';
 import SimilarProducts from '../SimilarProducts/SimilarProducts';
@@ -8,6 +8,8 @@ import { makeStyles } from '@material-ui/core';
 import Description from '../Description/Description';
 import DetailsSlider from '../DetailsSlider/DetailsSlider';
 import Footer from '../Footer/Footer';
+import { useParams } from 'react-router';
+import { productPage } from '../../api/api_types';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -23,14 +25,36 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+const url = 'https://api.divar.ir/v5/posts';
+
 const ProductPage = () => {
   const classes = useStyles();
+  const { token } = useParams<{ token: string }>();
+  const [pageData, setPageData] = useState<productPage>({});
+
+  useEffect(() => {
+    try {
+      fetch(`${url}/${token}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setPageData(data);
+        });
+    } catch (error) {
+      console.error(error);
+    }
+  }, [token]);
+
   return (
     <Box>
-      <Container maxWidth="md" style={{ marginTop: '90px' }}>
+      <Container maxWidth='md' style={{ marginTop: '90px' }}>
         <CustomSeparator />
         <Box className={classes.content}>
-          <Description />
+          {'data' in pageData && (
+            <Description
+              title={pageData.data.share.title}
+              description={pageData.data.share.description}
+            />
+          )}
           <DetailsSlider />
         </Box>
 

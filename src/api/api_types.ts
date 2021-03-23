@@ -1,18 +1,20 @@
-export type api = {}  | {
-  suggestion_list: suggestion[];
-  input_suggestion: any;
-  subtitle: string;
-  title: string;
-  seo_details: any;
-  internal_link_sections: unknown;
-  widget_list: widget[];
-  last_post_date: number;
-  first_post_date: number;
-  web_widgets: any;
-  banners: any;
-  schema: any;
-  jli: any;
-};
+export type api =
+  | {}
+  | {
+      suggestion_list: suggestion[];
+      input_suggestion: any;
+      subtitle: string;
+      title: string;
+      seo_details: any;
+      internal_link_sections: unknown;
+      widget_list: widget[];
+      last_post_date: number;
+      first_post_date: number;
+      web_widgets: any;
+      banners: any;
+      schema: any;
+      jli: any;
+    };
 export interface widget {
   widget_type: string;
   data: widget_data;
@@ -49,4 +51,33 @@ export interface Submenu_data {
   title: string;
   info: { header: string; list: string[] }[];
   footer: string;
+}
+
+export type productPage = {} | {
+  data: productPageData;
+  widgets: any;
+  token: string;
+  error: number;
+}
+
+export interface productPageData {
+  nabz_product_id: unknown;
+  business_card_slug: unknown;
+  seo: any;
+  share: productPageDataShare;
+  url: string;
+  category: any;
+  description: string;
+  business_data: any;
+  city: string;
+  webengage: any;
+  district: string;
+}
+
+export interface productPageDataShare {
+  title: string;
+  description: string;
+  android_url: string;
+  ios_url: string;
+  web_url: string;
 }

@@ -4,6 +4,7 @@ import Navbar from './components/Navbar/Navbar';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import DivarProvider from './context/DivarProvider';
 import Divar from './components/Divar/Divar';
+import ProductPage from './components/ProductPage/ProductPage';
 
 function App() {
   // const [apiData, setApiData] = useState<api | {}>({});
@@ -39,6 +40,7 @@ function App() {
         <div className={styles.app}>
           <Navbar />
           <Switch>
+            <Route path='/ProductPage/:token' component={ProductPage} />
             <Route path='/' component={Divar} />
           </Switch>
         </div>
