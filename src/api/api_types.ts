@@ -1,4 +1,4 @@
-export interface api {
+export type api = {}  | {
   suggestion_list: suggestion[];
   input_suggestion: any;
   subtitle: string;
@@ -12,7 +12,7 @@ export interface api {
   banners: any;
   schema: any;
   jli: any;
-}
+};
 export interface widget {
   widget_type: string;
   data: widget_data;
