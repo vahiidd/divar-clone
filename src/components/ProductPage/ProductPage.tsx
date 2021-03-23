@@ -6,7 +6,8 @@ import SimilarProducts from '../SimilarProducts/SimilarProducts';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core';
 import Description from '../Description/Description';
-import DetailsSlide from '../DetailsSlider/DetailsSlider';
+import DetailsSlider from '../DetailsSlider/DetailsSlider';
+import Footer from '../Footer/Footer';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -30,7 +31,7 @@ const ProductPage = () => {
         <CustomSeparator />
         <Box className={classes.content}>
           <Description />
-          <DetailsSlide />
+          <DetailsSlider />
         </Box>
 
         {/* <Box width="500px" height="200px">
@@ -38,6 +39,7 @@ const ProductPage = () => {
         </Box> */}
         <SimilarProducts />
       </Container>
+      <Footer />
     </Box>
   );
 };

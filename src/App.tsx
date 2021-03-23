@@ -30,34 +30,40 @@ function App() {
     fetchData();
   }, []);
 
-  // return (
-  //   <div className={styles.app}>
-  //     <ProductPage />
-  //   </div>
-  // );
-
   return (
     <Router>
       <div className={styles.app}>
         <Navbar />
-        <Grid container>
-          <Grid xs={3}>
-            <VerticalNavbar />
-          </Grid>
-          <Grid xs={9}>
-            <Search />
-            {'suggestion_list' in apiData && (
-              <Suggestion suggestion_list={apiData.suggestion_list} />
-            )}
-
-            {'widget_list' in apiData ? (
-              <BannerList widget_list={apiData.widget_list} />
-            ) : <LoadingSpinner />}
-          </Grid>
-        </Grid>
+        <ProductPage />
+        
       </div>
     </Router>
   );
+
+  // return (
+  //   <Router>
+  //     <div className={styles.app}>
+  //       <Navbar />
+  //       <Grid container>
+  //         <Grid xs={3}>
+  //           <VerticalNavbar />
+  //         </Grid>
+  //         <Grid xs={9}>
+  //           <Search />
+  //           {'suggestion_list' in apiData && (
+  //             <Suggestion suggestion_list={apiData.suggestion_list} />
+  //           )}
+
+  //           {'widget_list' in apiData ? (
+  //             <BannerList widget_list={apiData.widget_list} />
+  //           ) : (
+  //             <LoadingSpinner />
+  //           )}
+  //         </Grid>
+  //       </Grid>
+  //     </div>
+  //   </Router>
+  // );
 }
 
 export default App;
