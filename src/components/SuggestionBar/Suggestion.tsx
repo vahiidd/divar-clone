@@ -32,36 +32,29 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface propsType {
   suggestion_list: suggestion[];
+  setCategory: Function;
 }
 
-const Suggestion: React.FC<propsType> = ({ suggestion_list }) => {
+const Suggestion: React.FC<propsType> = ({ suggestion_list, setCategory }) => {
   const classes = useStyles();
   return (
     <div>
       <Box className={classes.sugBar}>
         {suggestion_list.map((suggestion) => (
-          <ButtonSug
+          <Button
             key={suggestion.displayed_text}
-            text={suggestion.displayed_text}
-          />
+            variant='outlined'
+            size='small'
+            className={classes.button}
+            onClick={() => {
+              setCategory(suggestion.value.category.value);
+            }}
+          >
+            {suggestion.displayed_text}
+          </Button>
         ))}
       </Box>
     </div>
-  );
-};
-
-interface buttonPropsType {
-  text: string;
-}
-
-const ButtonSug: React.FC<buttonPropsType> = ({ text }) => {
-  const classes = useStyles();
-  return (
-    <>
-      <Button variant='outlined' size='small' className={classes.button}>
-        {text}
-      </Button>
-    </>
   );
 };
 

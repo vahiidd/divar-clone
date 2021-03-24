@@ -5,14 +5,16 @@ import Suggestion from '../SuggestionBar/Suggestion';
 import BannerList from '../Banner/BannerList';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import { DivarContext } from '../../context/DivarProvider';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 const Divar = () => {
   const { apiData, getApiData } = useContext(DivarContext);
+  const [searchValue, setSearchValue] = useState('');
+  const [category, setCategory] = useState('');
 
   useEffect(() => {
-    getApiData();
-  }, [getApiData]);
+    getApiData(searchValue, category);
+  }, [getApiData, searchValue, category]);
 
   return (
     <Grid container>
@@ -20,9 +22,12 @@ const Divar = () => {
         <VerticalNavbar />
       </Grid>
       <Grid xs={9}>
-        <Search />
+        <Search setSearchValue={setSearchValue} />
         {'suggestion_list' in apiData && (
-          <Suggestion suggestion_list={apiData.suggestion_list} />
+          <Suggestion
+            setCategory={setCategory}
+            suggestion_list={apiData.suggestion_list}
+          />
         )}
 
         {'widget_list' in apiData ? (

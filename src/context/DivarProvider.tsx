@@ -14,9 +14,12 @@ export const DivarContext = createContext<{
 const DivarProvider: React.FC = ({ children }) => {
   const [apiData, setApiData] = useState<api>({});
 
-  const getApiData = useCallback(async () => {
+  const getApiData = useCallback(async (search: string, category: string) => {
     try {
-      const response = await fetch(`${url}`);
+      const fetchUrl = category
+        ? `${url}/${category}?q=${search}`
+        : `${url}?q=${search}`;
+      const response = await fetch(fetchUrl);
       const data = await response.json();
       setApiData(data);
     } catch (error) {
@@ -25,7 +28,7 @@ const DivarProvider: React.FC = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    getApiData();
+    getApiData('', '');
   }, [getApiData]);
 
   return (
