@@ -13,7 +13,7 @@ const LoadingSpinner = () => {
     >
       <CircularProgress color='secondary' size='60px' />
       <Typography variant='h6' style={{ fontFamily: 'Vazir' }}>
-        ...در حال دریافت
+        در حال دریافت...
       </Typography>
     </Box>
   );

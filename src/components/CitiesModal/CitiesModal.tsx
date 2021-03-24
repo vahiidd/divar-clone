@@ -1,14 +1,13 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { Button, Box } from '@material-ui/core';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import TextField from '@material-ui/core/TextField';
 import { preLoad } from '../../api/preLoadData';
-import CitiesBox from '../CitiesBox/CitiesBox';
 import { DivarContext } from '../../context/DivarProvider';
 import Cookies from 'js-cookie';
 
