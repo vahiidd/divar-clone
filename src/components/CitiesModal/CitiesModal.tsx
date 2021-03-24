@@ -95,7 +95,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function CitiesModal() {
-  const { setCity } = useContext(DivarContext);
+  const { city, setCity } = useContext(DivarContext);
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
@@ -111,7 +111,10 @@ export default function CitiesModal() {
     <>
       <Link style={{ textDecoration: 'none' }} to='/tehran'>
         <Button className={classes.cityButton} onClick={handleModalOpen}>
-          <LocationOnIcon /> تهران
+          <LocationOnIcon />
+          {city
+            ? preLoad.city.compressedData.find((x) => x[2] === city)![1]
+            : null}
         </Button>
       </Link>
       <Modal
