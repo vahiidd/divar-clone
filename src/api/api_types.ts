@@ -12,7 +12,37 @@ export type api =
       first_post_date: number;
       web_widgets: any;
       banners: any;
-      schema: any;
+      schema: {
+        json_schema: {
+          additionalProperties: any;
+          properties: {
+            category: any;
+            districts: {
+              additionalProperties: any;
+              properties: {
+                'near-vacancies': any;
+                vacancies: {
+                  items: {
+                    enum: any;
+                    enumNames: string[];
+                    type: string;
+                  };
+                  minItems: any;
+                  title: any;
+                  type: any;
+                };
+              };
+            };
+            'has-photo': any;
+            'is-store': any;
+            price: any;
+            query: any;
+            urgent: any;
+          };
+          type: any;
+        };
+        ui_schema: any;
+      };
       jli: any;
     };
 export interface widget {
@@ -53,12 +83,14 @@ export interface Submenu_data {
   footer: string;
 }
 
-export type productPage = {} | {
-  data: productPageData;
-  widgets: any;
-  token: string;
-  error: number;
-}
+export type productPage =
+  | {}
+  | {
+      data: productPageData;
+      widgets: any;
+      token: string;
+      error: number;
+    };
 
 export interface productPageData {
   nabz_product_id: unknown;

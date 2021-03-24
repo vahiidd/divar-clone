@@ -101,7 +101,8 @@ const Description: React.FC<descriptionType> = ({ title, description }) => {
           </Box>
         </Box>
         <Typography
-          style={{ fontSize: '15px', fontFamily: 'Vazir', fontWeight: 'bold' }}
+          variant='h6'
+          style={{ fontFamily: 'Vazir', fontWeight: 'bold', color: 'black' }}
         >
           توضیحات
         </Typography>

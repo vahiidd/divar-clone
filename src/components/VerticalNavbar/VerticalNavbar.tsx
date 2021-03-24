@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Accordion, AccordionDetails, AccordionSummary } from './accordion';
 import categories from './categories';
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
@@ -21,6 +21,7 @@ import {
   Select,
   Switch,
 } from '@material-ui/core';
+import { DivarContext } from '../../context/DivarProvider';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -108,6 +109,7 @@ export default function VerticalNavbar() {
   const classes = useStyles();
   const [checked, setChecked] = React.useState(false);
   const [age, setAge] = React.useState('');
+  const { apiData } = useContext(DivarContext);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
@@ -158,9 +160,11 @@ export default function VerticalNavbar() {
                   setAge(event.target.value as string);
                 }}
               >
-                <MenuItem>آبشار</MenuItem>
-                <MenuItem>آبشار</MenuItem>
-                <MenuItem>آبشار</MenuItem>
+                {'schema' in apiData
+                  ? apiData.schema.json_schema.properties.districts.properties.vacancies.items.enumNames.map(
+                      (name) => <MenuItem>{name}</MenuItem>
+                    )
+                  : null}
               </Select>
             </FormControl>
           </AccordionDetails>

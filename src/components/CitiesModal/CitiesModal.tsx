@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { Button, Box } from '@material-ui/core';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
@@ -8,19 +8,8 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import TextField from '@material-ui/core/TextField';
 import { preLoad } from '../../api/preLoadData';
-
-const topCities = [
-  ['تهران', 'tehran'],
-  ['مشهد', 'mashhad'],
-  ['کرج', 'karaj'],
-  ['شیراز', 'shiraz'],
-  ['اصفهان', 'isfahan'],
-  ['اهواز', 'ahvaz'],
-  ['تبریز', 'tabriz'],
-  ['کرمانشاه', 'kermanshah'],
-  ['قم', 'qom'],
-  ['رشت', 'rasht'],
-];
+import CitiesBox from '../CitiesBox/CitiesBox';
+import { DivarContext } from '../../context/DivarProvider';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -93,8 +82,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function CitiesModal() {
   const classes = useStyles();
-  const location = useLocation();
   const [open, setOpen] = React.useState(false);
+  const { city } = useContext(DivarContext);
 
   const handleModalOpen = () => {
     setOpen(true);
@@ -103,16 +92,21 @@ export default function CitiesModal() {
   const handleModalClose = () => {
     setOpen(false);
   };
+
+  useEffect(() => {
+    handleModalClose();
+  }, [city]);
+
   return (
     <>
-      <Link style={{ textDecoration: 'none' }} to="/tehran">
+      <Link style={{ textDecoration: 'none' }} to='/tehran'>
         <Button className={classes.cityButton} onClick={handleModalOpen}>
           <LocationOnIcon /> تهران
         </Button>
       </Link>
       <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
+        aria-labelledby='transition-modal-title'
+        aria-describedby='transition-modal-description'
         className={classes.modal}
         open={open}
         onClose={handleModalClose}
@@ -123,68 +117,7 @@ export default function CitiesModal() {
         }}
       >
         <Fade in={open}>
-          <div className={classes.paper}>
-            <h3
-              style={{ fontFamily: 'Vazir', margin: '0px 5px 20px 5px' }}
-              id="transition-modal-title"
-            >
-              انتخاب شهر
-            </h3>
-            <TextField
-              id="outlined-full-width"
-              style={{ margin: 0 }}
-              placeholder="جستجوی سریع نام شهر..."
-              fullWidth
-              margin="normal"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              InputProps={{
-                classes: {
-                  input: classes.resize,
-                },
-              }}
-              variant="outlined"
-            />
-            <p
-              style={{ fontFamily: 'Vazir', margin: '30px 10px 10px' }}
-              id="transition-modal-description"
-            >
-              شهر های پر بازدید
-            </p>
-            <Box>
-              {/* @ts-ignore */}
-              {topCities.map((city) => (
-                <Link style={{ textDecoration: 'none' }} to={`/${city[1]}`}>
-                  {location.pathname === `/${city[1]}` ? (
-                    <Button className={classes.activeCityBtn}>{city[0]}</Button>
-                  ) : (
-                    <Button variant="outlined" className={classes.cityBtn}>
-                      {city[0]}
-                    </Button>
-                  )}
-                </Link>
-              ))}
-            </Box>
-            <p
-              style={{ fontFamily: 'Vazir', margin: '30px 10px 10px' }}
-              id="transition-modal-description"
-            >
-              همه شهر ها
-            </p>
-            {/* @ts-ignore */}
-            {preLoad.city.compressedData.map((city) => (
-              <Link style={{ textDecoration: 'none' }} to={`/${city[2]}`}>
-                {location.pathname === `/${city[2]}` ? (
-                  <Button className={classes.activeCityBtn}>{city[1]}</Button>
-                ) : (
-                  <Button variant="outlined" className={classes.cityBtn}>
-                    {city[1]}
-                  </Button>
-                )}
-              </Link>
-            ))}
-          </div>
+          <CitiesBox />
         </Fade>
       </Modal>
     </>
