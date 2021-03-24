@@ -6,14 +6,24 @@ import BannerList from '../Banner/BannerList';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import { DivarContext } from '../../context/DivarProvider';
 import React, { useContext, useEffect, useState } from 'react';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { widget } from '../../api/api_types';
 
 const Divar = () => {
   const { apiData, getApiData } = useContext(DivarContext);
   const [searchValue, setSearchValue] = useState('');
   const [category, setCategory] = useState('');
+  const [widgetList, setWidgetList] = useState<widget[]>([]);
+
+  const getNextWidgetList = () => {
+    getApiData(searchValue, category);
+    if ('widget_list' in apiData)
+      setWidgetList(widgetList.concat(apiData.widget_list));
+  };
 
   useEffect(() => {
     getApiData(searchValue, category);
+    setWidgetList([]);
   }, [getApiData, searchValue, category]);
 
   return (
@@ -31,7 +41,18 @@ const Divar = () => {
         )}
 
         {'widget_list' in apiData ? (
-          <BannerList widget_list={apiData.widget_list} />
+          <InfiniteScroll
+            dataLength={widgetList.length}
+            next={getNextWidgetList}
+            hasMore={true}
+            loader={<LoadingSpinner />}
+          >
+            <BannerList
+              widget_list={
+                widgetList.length === 0 ? apiData.widget_list : widgetList
+              }
+            />
+          </InfiniteScroll>
         ) : (
           <LoadingSpinner />
         )}
