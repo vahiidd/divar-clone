@@ -12,45 +12,18 @@ const Slide: FC<SlideProps> = ({
 }) => {
   const slideStyles = {
     ...styles,
-    bg: customContent ? '' : fill,
-    ...(imageUrl &&
-      !useImageAsTag && {
-        backgroundImage: `url(${imageUrl})`,
-        backgroundRepeat: 'no-repeat',
-      }),
   };
 
   let renderedContent = (
-    <Heading
-      fontWeight={2}
-      fontSize={[5, 5, 6, 7]}
-      color="white"
-      textAlign="center"
-    >
-      {content}
-    </Heading>
+    <>
+      <Image alt='img' src={imageUrl} width='100%' className='swiper-lazy' />
+    </>
   );
-
-  if (imageUrl) {
-    renderedContent = <></>;
-
-    if (useImageAsTag) {
-      renderedContent = (
-        <>
-          <Image alt="img" data-src={imageUrl} className="swiper-lazy" />
-          <Box className="swiper-lazy-preloader swiper-lazy-preloader-white" />
-        </>
-      );
-    }
-  } else if (customContent) {
-    renderedContent = <>{customContent}</>;
-  }
-
   return (
     <Flex
-      justifyContent="center"
-      alignItems="center"
-      height="20rem"
+      justifyContent='center'
+      alignItems='center'
+      height='20rem'
       {...slideStyles}
     >
       {renderedContent}

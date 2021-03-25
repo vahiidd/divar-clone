@@ -1,4 +1,4 @@
-import { Box, Button, createStyles, Theme } from '@material-ui/core';
+import { Box, Button, createStyles, Grid, Theme } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import CustomSeparator from '../Breadcrumbs/CustomSeparator';
 import MapLocation from '../MapLocation/MapLocation';
@@ -46,7 +46,7 @@ const ProductPage = () => {
 
   return (
     <Box>
-      <Container maxWidth='md' style={{ marginTop: '90px' }}>
+      <Container style={{ marginTop: '110px', maxWidth: '1090px' }}>
         <CustomSeparator />
         <Box className={classes.content}>
           {'data' in pageData && (
@@ -61,8 +61,8 @@ const ProductPage = () => {
         {/* <Box width="500px" height="200px">
           <MapLocation />
         </Box> */}
-        <SimilarProducts />
       </Container>
+      <SimilarProducts />
       <Footer />
     </Box>
   );
