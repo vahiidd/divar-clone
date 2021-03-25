@@ -6,6 +6,7 @@ import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import { IconButton } from '@material-ui/core';
 import { useContext } from 'react';
 import { ProductContext } from '../../context/ProductProvider';
+import Divar from '../Divar/Divar';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -67,6 +68,15 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'space-around',
       marginRight: '30px',
     },
+    listData: {
+      fontFamily: 'Vazir',
+    },
+    linksBtn: {
+      fontFamily: 'Vazir',
+      backgroundColor: 'rgba(224, 224, 224, .3)',
+      margin: '5px',
+      color: 'gray',
+    },
   })
 );
 
@@ -85,7 +95,7 @@ const Description = () => {
           {title}
         </Typography>
         <Typography variant='h5' className={classes.descriptionHelper}>
-          دقایقی پیش در کرج
+          {'widgets' in pageData && pageData.widgets.header.subtitle}
         </Typography>
         <Box className={classes.buttons}>
           <Button variant='contained' className={classes.infoBtn}>
@@ -103,13 +113,38 @@ const Description = () => {
             </IconButton>
           </Box>
         </Box>
+        <Box width='78%' my={3}>
+          {'widgets' in pageData &&
+            pageData.widgets.list_data.map((data) => (
+              <>
+                <Box display='flex' justifyContent='space-between' p={1}>
+                  <Typography className={classes.listData}>
+                    {data.title}
+                  </Typography>
+                  <Typography className={classes.listData} color='textPrimary'>
+                    {data.value}
+                  </Typography>
+                </Box>
+                <hr style={{ opacity: '.2' }} />
+              </>
+            ))}
+        </Box>
         <Typography
           variant='h6'
-          style={{ fontFamily: 'Vazir', fontWeight: 'bold', color: 'black' }}
+          style={{ fontFamily: 'Vazir', fontWeight: 500, color: 'black' }}
         >
           توضیحات
         </Typography>
-        <Typography>{description}</Typography>
+        <Typography style={{ fontFamily: 'Vazir', marginTop: '10px', whiteSpace: 'pre-wrap' }} color='textPrimary'>
+          {description}
+        </Typography>
+        {'widgets' in pageData && (
+          <Box my={2}>
+            {pageData.widgets.links.map((link) => (
+              <Button className={classes.linksBtn}>{link.title}</Button>
+            ))}
+          </Box>
+        )}
       </Box>
     </>
   );

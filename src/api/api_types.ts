@@ -106,15 +106,34 @@ export interface breadcrumbCategory {
   relative_url: string;
 }
 
+export interface productWidgetsListData {
+  title: string;
+  format: string;
+  value: string;
+}
+
+export interface productWidgetsLink {
+  title: string;
+  url: string;
+  relative_url: string;
+}
+
 export type productPage =
   | {}
   | {
       data: productPageData;
       widgets: {
-        header: any;
+        header: {
+          date: string;
+          subtitle: string;
+          title: string;
+          thumbnail: string;
+          place: string;
+          business_logo: any;
+        };
         description: any;
         description_show_lines: any;
-        list_data: any;
+        list_data: productWidgetsListData[];
         location: any;
         images: string[];
         web_images: any;
@@ -124,7 +143,7 @@ export type productPage =
           base_url: string;
         };
         contact: any;
-        links: any;
+        links: productWidgetsLink[];
         messages: any;
         warnings: any;
         car_inspection: any;
