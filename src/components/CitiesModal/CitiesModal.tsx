@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { Button, Box } from '@material-ui/core';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
@@ -96,7 +96,8 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function CitiesModal() {
   const { city, setCity } = useContext(DivarContext);
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [input, setInput] = useState('');
 
   const handleModalOpen = () => {
     setOpen(true);
@@ -151,49 +152,73 @@ export default function CitiesModal() {
                 },
               }}
               variant='outlined'
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
             />
-            <p
-              style={{ fontFamily: 'Vazir', margin: '30px 10px 10px' }}
-              id='transition-modal-description'
-            >
-              شهر های پر بازدید
-            </p>
-            <Box>
-              {/* @ts-ignore */}
-              {topCities.map((city) => (
-                <Button
-                  onClick={() => {
-                    handleModalClose();
-                    setCity(city[1]);
-                    Cookies.set('city', city[1]);
-                  }}
-                  variant='outlined'
-                  className={classes.cityBtn}
+            {input ? (
+              <>
+                {preLoad.city.compressedData
+                  .filter((city) => (city[1] as string).includes(input))
+                  .map((city) => (
+                    <Button
+                      onClick={() => {
+                        handleModalClose();
+                        setCity(city[2] as string);
+                        Cookies.set('city', city[2] as string);
+                      }}
+                      variant='outlined'
+                      className={classes.cityBtn}
+                    >
+                      {city[1]}
+                    </Button>
+                  ))}
+              </>
+            ) : (
+              <>
+                <p
+                  style={{ fontFamily: 'Vazir', margin: '30px 10px 10px' }}
+                  id='transition-modal-description'
                 >
-                  {city[0]}
-                </Button>
-              ))}
-            </Box>
-            <p
-              style={{ fontFamily: 'Vazir', margin: '30px 10px 10px' }}
-              id='transition-modal-description'
-            >
-              همه شهر ها
-            </p>
-            {/* @ts-ignore */}
-            {preLoad.city.compressedData.map((city) => (
-              <Button
-                onClick={() => {
-                  handleModalClose();
-                  setCity(city[2] as string);
-                  Cookies.set('city', city[2] as string);
-                }}
-                variant='outlined'
-                className={classes.cityBtn}
-              >
-                {city[1]}
-              </Button>
-            ))}
+                  شهر های پر بازدید
+                </p>
+                <Box>
+                  {/* @ts-ignore */}
+                  {topCities.map((city) => (
+                    <Button
+                      onClick={() => {
+                        handleModalClose();
+                        setCity(city[1]);
+                        Cookies.set('city', city[1]);
+                      }}
+                      variant='outlined'
+                      className={classes.cityBtn}
+                    >
+                      {city[0]}
+                    </Button>
+                  ))}
+                </Box>
+                <p
+                  style={{ fontFamily: 'Vazir', margin: '30px 10px 10px' }}
+                  id='transition-modal-description'
+                >
+                  همه شهر ها
+                </p>
+                {/* @ts-ignore */}
+                {preLoad.city.compressedData.map((city) => (
+                  <Button
+                    onClick={() => {
+                      handleModalClose();
+                      setCity(city[2] as string);
+                      Cookies.set('city', city[2] as string);
+                    }}
+                    variant='outlined'
+                    className={classes.cityBtn}
+                  >
+                    {city[1]}
+                  </Button>
+                ))}
+              </>
+            )}
           </div>
         </Fade>
       </Modal>

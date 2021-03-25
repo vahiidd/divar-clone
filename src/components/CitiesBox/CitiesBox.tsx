@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { Box, Button, TextField } from '@material-ui/core';
 import { preLoad } from '../../api/preLoadData';
@@ -65,6 +65,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const CitiesBox = () => {
   const classes = useStyles();
   const { setCity } = useContext(DivarContext);
+  const [input, setInput] = useState('');
   return (
     <div className={classes.paper}>
       <h3
@@ -88,47 +89,71 @@ const CitiesBox = () => {
           },
         }}
         variant='outlined'
+        value={input}
+        onChange={(e) => {
+          setInput(e.target.value);
+        }}
       />
-      <p
-        style={{ fontFamily: 'Vazir', margin: '30px 10px 10px' }}
-        id='transition-modal-description'
-      >
-        شهر های پر بازدید
-      </p>
-      <Box>
-        {/* @ts-ignore */}
-        {topCities.map((city) => (
-          <Button
-            onClick={() => {
-              setCity(city[1]);
-              Cookies.set('city', city[1]);
-            }}
-            variant='outlined'
-            className={classes.cityBtn}
+      {input ? (
+        <>
+          {preLoad.city.compressedData
+            .filter((city) => (city[1] as string).includes(input))
+            .map((city) => (
+              <Button
+                onClick={() => {
+                  setCity(city[2] as string);
+                  Cookies.set('city', city[2] as string);
+                }}
+                variant='outlined'
+                className={classes.cityBtn}
+              >
+                {city[1]}
+              </Button>
+            ))}
+        </>
+      ) : (
+        <>
+          <p
+            style={{ fontFamily: 'Vazir', margin: '30px 10px 10px' }}
+            id='transition-modal-description'
           >
-            {city[0]}
-          </Button>
-        ))}
-      </Box>
-      <p
-        style={{ fontFamily: 'Vazir', margin: '30px 10px 10px' }}
-        id='transition-modal-description'
-      >
-        همه شهر ها
-      </p>
-      {/* @ts-ignore */}
-      {preLoad.city.compressedData.map((city) => (
-        <Button
-          onClick={() => {
-            setCity(city[2] as string);
-            Cookies.set('city', city[2] as string);
-          }}
-          variant='outlined'
-          className={classes.cityBtn}
-        >
-          {city[1]}
-        </Button>
-      ))}
+            شهر های پر بازدید
+          </p>
+          <Box>
+            {/* @ts-ignore */}
+            {topCities.map((city) => (
+              <Button
+                onClick={() => {
+                  setCity(city[1]);
+                  Cookies.set('city', city[1]);
+                }}
+                variant='outlined'
+                className={classes.cityBtn}
+              >
+                {city[0]}
+              </Button>
+            ))}
+          </Box>
+          <p
+            style={{ fontFamily: 'Vazir', margin: '30px 10px 10px' }}
+            id='transition-modal-description'
+          >
+            همه شهر ها
+          </p>
+          {preLoad.city.compressedData.map((city) => (
+            <Button
+              onClick={() => {
+                setCity(city[2] as string);
+                Cookies.set('city', city[2] as string);
+              }}
+              variant='outlined'
+              className={classes.cityBtn}
+            >
+              {city[1]}
+            </Button>
+          ))}
+        </>
+      )}
     </div>
   );
 };
