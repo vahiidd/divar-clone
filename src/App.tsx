@@ -6,6 +6,7 @@ import Divar from './components/Divar/Divar';
 import ProductPage from './components/ProductPage/ProductPage';
 import { DivarContext } from './context/DivarProvider';
 import CitiesBox from './components/CitiesBox/CitiesBox';
+import ProductProvider from './context/ProductProvider';
 
 function App() {
   const { city } = useContext(DivarContext);
@@ -19,7 +20,11 @@ function App() {
         <Navbar />
         {isSelectCity ? (
           <Switch>
-            <Route path='/ProductPage/:token' component={ProductPage} />
+            <Route path='/ProductPage/:token'>
+              <ProductProvider>
+                <ProductPage />
+              </ProductProvider>
+            </Route>
             <Route path='/' component={Divar} />
           </Switch>
         ) : (

@@ -4,6 +4,8 @@ import { makeStyles } from '@material-ui/core';
 import ShareIcon from '@material-ui/icons/Share';
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import { IconButton } from '@material-ui/core';
+import { useContext } from 'react';
+import { ProductContext } from '../../context/ProductProvider';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -68,13 +70,14 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-interface descriptionType {
-  title: string;
-  description: string;
-}
-
-const Description: React.FC<descriptionType> = ({ title, description }) => {
+const Description = () => {
   const classes = useStyles();
+  const { pageData } = useContext(ProductContext);
+  const { title, description } =
+    'data' in pageData
+      ? pageData.data.share
+      : { title: null, description: null };
+
   return (
     <>
       <Box className={classes.description}>

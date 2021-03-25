@@ -1,3 +1,5 @@
+import { AnyPtrRecord } from 'dns';
+
 export type api =
   | {}
   | {
@@ -87,7 +89,25 @@ export type productPage =
   | {}
   | {
       data: productPageData;
-      widgets: any;
+      widgets: {
+        header: any;
+        description: any;
+        description_show_lines: any;
+        list_data: any;
+        location: any;
+        images: string[];
+        web_images: any;
+        breadcrumb: any;
+        contact: any;
+        links: any;
+        messages: any;
+        warnings: any;
+        car_inspection: any;
+        tags: any;
+        customer_car_inspection_request: any;
+        suggestions: any;
+        note: any;
+      };
       token: string;
       error: number;
     };

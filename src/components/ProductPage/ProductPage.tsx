@@ -1,7 +1,6 @@
-import { Box, Button, createStyles, Grid, Theme } from '@material-ui/core';
-import React, { useEffect, useState } from 'react';
+import { Box, createStyles, Theme } from '@material-ui/core';
+import React, { useContext, useEffect, useState } from 'react';
 import CustomSeparator from '../Breadcrumbs/CustomSeparator';
-import MapLocation from '../MapLocation/MapLocation';
 import SimilarProducts from '../SimilarProducts/SimilarProducts';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core';
@@ -9,7 +8,8 @@ import Description from '../Description/Description';
 import DetailsSlider from '../DetailsSlider/DetailsSlider';
 import Footer from '../Footer/Footer';
 import { useParams } from 'react-router';
-import { productPage } from '../../api/api_types';
+import { ProductContext } from '../../context/ProductProvider';
+import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,36 +25,26 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const url = 'https://api.divar.ir/v5/posts';
-
 const ProductPage = () => {
   const classes = useStyles();
+  const [loading, setLoading] = useState(true);
   const { token } = useParams<{ token: string }>();
-  const [pageData, setPageData] = useState<productPage>({});
+  const { pageData, getPageData } = useContext(ProductContext);
 
   useEffect(() => {
-    try {
-      fetch(`${url}/${token}`)
-        .then((response) => response.json())
-        .then((data) => {
-          setPageData(data);
-        });
-    } catch (error) {
-      console.error(error);
-    }
-  }, [token]);
+    (async () => {
+      setLoading(!(await getPageData(token)));
+    })();
+  }, [getPageData, token]);
+
+  if (loading) return <LoadingSpinner />;
 
   return (
     <Box>
       <Container style={{ marginTop: '110px', maxWidth: '1090px' }}>
         <CustomSeparator />
         <Box className={classes.content}>
-          {'data' in pageData && (
-            <Description
-              title={pageData.data.share.title}
-              description={pageData.data.share.description}
-            />
-          )}
+          <Description />
           <DetailsSlider />
         </Box>
 
