@@ -1,11 +1,11 @@
-import { theme as defaultTheme, normalize } from "@react-yuki/ui";
-import { css } from "@emotion/core";
+import { theme as defaultTheme, normalize } from '@react-yuki/ui';
+import { css } from '@emotion/core';
 
 export const colors = {
   ...defaultTheme.colors,
-  dark: "#333333",
-  lightGray: "#ebebeb",
-  darkGray: "#333435"
+  dark: '#333333',
+  lightGray: '#ebebeb',
+  darkGray: '#333435',
 };
 
 export const swiperStyle = css`
@@ -487,7 +487,7 @@ export const swiperStyle = css`
       background-position: 50%;
       background-repeat: no-repeat;
       background-size: 100%;
-      content: "";
+      content: '';
     }
   }
 
@@ -567,5 +567,5 @@ export const globalStyles = css`
 
 export const theme = {
   ...defaultTheme,
-  colors
+  colors,
 };

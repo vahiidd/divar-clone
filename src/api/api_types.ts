@@ -85,6 +85,16 @@ export interface Submenu_data {
   footer: string;
 }
 
+export interface breadcrumbCategory {
+  parent_slug: string;
+  slug: string;
+  title: string;
+  icon_url: null;
+  old_meta_id: number;
+  second_slug: string;
+  relative_url: string;
+}
+
 export type productPage =
   | {}
   | {
@@ -97,7 +107,11 @@ export type productPage =
         location: any;
         images: string[];
         web_images: any;
-        breadcrumb: any;
+        breadcrumb: {
+          categories: breadcrumbCategory[];
+          main_url: string;
+          base_url: string;
+        };
         contact: any;
         links: any;
         messages: any;

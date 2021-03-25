@@ -29,7 +29,7 @@ const ProductPage = () => {
   const classes = useStyles();
   const [loading, setLoading] = useState(true);
   const { token } = useParams<{ token: string }>();
-  const { pageData, getPageData } = useContext(ProductContext);
+  const { getPageData } = useContext(ProductContext);
 
   useEffect(() => {
     (async () => {

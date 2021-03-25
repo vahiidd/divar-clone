@@ -33,10 +33,10 @@ export const SlideContainer: FC<FlexProps> = props => (
           bg: "white",
           "&:first-child": {
             width: "100%",
-            height: "20rem"
+            height: "50rem"
           },
           "&:last-child": {
-            height: ["2.5rem", "20%"],
+            height: ["2.5rem", "25%"],
             boxSizing: "border-box",
             mt: "0.5rem",
             ".swiper-slide": {

@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) =>
       fontFamily: 'Vazir',
       fontSize: '1.5em',
       color: 'rgba(0,0,0,.87)',
-      fontWeight: 500,
+      fontWeight: 'bold',
     },
     descriptionHelper: {
       margin: '8px 0 16px',

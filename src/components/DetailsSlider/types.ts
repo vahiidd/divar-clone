@@ -14,10 +14,8 @@ export type GenerateSlides = (params: SlideGeneratorOption) => Slide[];
 export interface Slide {
   id?: string;
   fill?: string;
-  content: string;
   customContent?: ReactNode;
   imageUrl?: string;
-  useImageAsTag?: boolean;
 }
 
 export interface SliderProps extends FlexProps {

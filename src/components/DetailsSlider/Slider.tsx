@@ -23,8 +23,6 @@ const Slider: FC<SliderProps> = ({ params = [], id, hasImage, ...styles }) => {
     'widgets' in pageData
       ? pageData.widgets.images.map((imageUrl) => ({
           id,
-          content: '',
-          useImageAsTag: false,
           imageUrl,
         }))
       : [];
