@@ -7,7 +7,18 @@ export type api =
       input_suggestion: any;
       subtitle: string;
       title: string;
-      seo_details: any;
+      seo_details: {
+        title: string;
+        description: string;
+        headline: string;
+        meta_robots: any;
+        bread_crumbs: any;
+        next: string;
+        prev: string;
+        web_url: string;
+        android_url: string;
+        canonical: string;
+      };
       internal_link_sections: unknown;
       widget_list: widget[];
       last_post_date: number;

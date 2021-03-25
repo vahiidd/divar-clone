@@ -5,7 +5,7 @@ import Suggestion from '../SuggestionBar/Suggestion';
 import BannerList from '../Banner/BannerList';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import { DivarContext } from '../../context/DivarProvider';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { widget } from '../../api/api_types';
 
@@ -15,16 +15,20 @@ const Divar = () => {
   const [category, setCategory] = useState('');
   const [widgetList, setWidgetList] = useState<widget[]>([]);
 
-  const getNextWidgetList = () => {
-    getApiData(searchValue, category);
-    if ('widget_list' in apiData)
-      setWidgetList(widgetList.concat(apiData.widget_list));
+  const getNextWidgetList = async () => {
+    // (() => {
+    if ( await getApiData(searchValue, category, true)) {
+      if ('widget_list' in apiData)
+        setWidgetList(widgetList.concat(apiData.widget_list));
+    }
+    // })();
   };
 
   useEffect(() => {
     getApiData(searchValue, category);
     setWidgetList([]);
-  }, [getApiData, searchValue, category]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [category, searchValue]);
 
   return (
     <Grid container>

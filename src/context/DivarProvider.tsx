@@ -24,20 +24,27 @@ export const DivarContext = createContext<{
 const DivarProvider: React.FC = ({ children }) => {
   const [apiData, setApiData] = useState<api>({});
   const [city, setCity] = useState(() => Cookies.get('city'));
-
+  const [nextPage, setNextPage] = useState('');
   const url = `https://api.divar.ir/v8/web-search/${city}`;
-  const getApiData = useCallback(async (search: string, category: string) => {
-    try {
-      const fetchUrl = category
-        ? `${url}/${category}?q=${search}`
-        : `${url}?q=${search}`;
-      const response = await fetch(fetchUrl);
-      const data = await response.json();
-      setApiData(data);
-    } catch (error) {
-      console.error(error);
-    }
-  }, [url]);
+  const getApiData = useCallback(
+    async (search: string, category: string, next?: boolean) => {
+      const qSearch = search ? '?q=' + search : '';
+      const qNext = next ? '?' + nextPage : '';
+      try {
+        const fetchUrl = category
+          ? `${url}/${category}${qSearch}${qNext}`
+          : `${url}${qSearch}${qNext}`;
+        const response = await fetch(fetchUrl);
+        const data = await response.json();
+        setApiData(data);
+        setNextPage(data.seo_details.next.split('?')[1]);
+        return true;
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    [nextPage, url]
+  );
 
   useEffect(() => {
     getApiData('', '');
