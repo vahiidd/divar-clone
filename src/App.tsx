@@ -7,10 +7,11 @@ import ProductPage from './components/ProductPage/ProductPage';
 import { DivarContext } from './context/DivarProvider';
 import CitiesBox from './components/CitiesBox/CitiesBox';
 import ProductProvider from './context/ProductProvider';
+import Cookies from 'js-cookie';
 
 function App() {
   const { city } = useContext(DivarContext);
-  const [isSelectCity, setIsSelectCity] = useState(false);
+  const [isSelectCity, setIsSelectCity] = useState(Boolean(Cookies.get('city')));
   useEffect(() => {
     setIsSelectCity(Boolean(city));
   }, [city]);

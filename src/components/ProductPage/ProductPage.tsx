@@ -29,7 +29,7 @@ const ProductPage = () => {
   const classes = useStyles();
   const [loading, setLoading] = useState(true);
   const { token } = useParams<{ token: string }>();
-  const { getPageData } = useContext(ProductContext);
+  const { pageData, getPageData } = useContext(ProductContext);
 
   useEffect(() => {
     (async () => {
@@ -47,12 +47,11 @@ const ProductPage = () => {
           <Description />
           <DetailsSlider />
         </Box>
-
-        {/* <Box width="500px" height="200px">
-          <MapLocation />
-        </Box> */}
       </Container>
-      <SimilarProducts />
+      {'widgets' in pageData &&
+        pageData.widgets.suggestions.suggestion_available && (
+          <SimilarProducts />
+        )}
       <Footer />
     </Box>
   );

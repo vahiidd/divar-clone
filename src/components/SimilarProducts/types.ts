@@ -1,6 +1,6 @@
-import { ReactNode } from "react";
-import { FlexProps } from "@react-yuki/ui";
-import { ReactIdSwiperProps } from "react-id-swiper";
+import { ReactNode } from 'react';
+import { FlexProps } from '@react-yuki/ui';
+import { ReactIdSwiperProps } from 'react-id-swiper';
 
 interface SlideGeneratorOption {
   id?: string;
@@ -12,12 +12,12 @@ interface SlideGeneratorOption {
 export type GenerateSlides = (params: SlideGeneratorOption) => Slide[];
 
 export interface Slide {
+  token?: string;
   id?: string;
-  fill?: string;
-  content: string;
   customContent?: ReactNode;
   imageUrl?: string;
-  useImageAsTag?: boolean;
+  title: string;
+  bottom_text: string;
 }
 
 export interface SliderProps extends FlexProps {
@@ -27,8 +27,6 @@ export interface SliderProps extends FlexProps {
   hasImage?: boolean;
   useImageAsTag?: boolean;
 }
-
-export interface SlideProps extends Slide, Omit<FlexProps, "content"> {}
 
 export interface Colors {
   [key: string]: string | string[];

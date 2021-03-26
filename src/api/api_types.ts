@@ -118,6 +118,19 @@ export interface productWidgetsLink {
   relative_url: string;
 }
 
+export interface productSuggestionPost {
+  bottom_text: string;
+  title: string;
+  image: string;
+  action: string;
+  post_view_payload: {
+    token: string;
+  };
+  action_log_payload: any;
+  token: string;
+  middle_text: string;
+}
+
 export type productPage =
   | {}
   | {
@@ -149,7 +162,13 @@ export type productPage =
         car_inspection: any;
         tags: any;
         customer_car_inspection_request: any;
-        suggestions: any;
+        suggestions: {
+          suggestion_available: boolean;
+          title: any;
+          posts: productSuggestionPost[];
+          widget_list: any;
+          post_suggestion_extra_logs: any;
+        };
         note: any;
       };
       token: string;

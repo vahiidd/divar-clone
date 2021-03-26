@@ -21,7 +21,7 @@ const SimilarProducts = () => (
           params={{
             slidesPerView: 4,
             spaceBetween: 18,
-            slidesPerGroup: 4,
+            slidesPerGroup: 1,
             loop: true,
             loopFillGroupWithBlank: true,
             pagination: {
