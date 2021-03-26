@@ -46,9 +46,9 @@ const DivarProvider: React.FC = ({ children }) => {
     [nextPage, url]
   );
 
-  // useEffect(() => {
-  //   getApiData('', '');
-  // }, [getApiData]);
+  useEffect(() => {
+    getApiData('', '');
+  }, [getApiData]);
 
   return (
     <DivarContext.Provider value={{ city, setCity, apiData, getApiData }}>
