@@ -10,16 +10,16 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { widget } from '../../api/api_types';
 
 const Divar = () => {
-  const { apiData, getApiData } = useContext(DivarContext);
+  const { apiData, getApiData, city } = useContext(DivarContext);
   const [searchValue, setSearchValue] = useState('');
   const [category, setCategory] = useState('');
   const [widgetList, setWidgetList] = useState<widget[]>([]);
 
   const getNextWidgetList = async () => {
     // (() => {
-    if ( await getApiData(searchValue, category, true)) {
+    if (await getApiData(searchValue, category, true)) {
       if ('widget_list' in apiData)
-        setWidgetList(widgetList.concat(apiData.widget_list));
+        setWidgetList((pre) => pre.concat(apiData.widget_list));
     }
     // })();
   };
@@ -27,8 +27,8 @@ const Divar = () => {
   useEffect(() => {
     getApiData(searchValue, category);
     setWidgetList([]);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [category, searchValue]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [category, searchValue, city]);
 
   return (
     <Grid container>
