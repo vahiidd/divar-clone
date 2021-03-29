@@ -10,9 +10,8 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { widget } from '../../api/api_types';
 
 const Divar = () => {
-  const { apiData, getApiData, city } = useContext(DivarContext);
+  const { apiData, getApiData, city, category } = useContext(DivarContext);
   const [searchValue, setSearchValue] = useState('');
-  const [category, setCategory] = useState('');
   const [widgetList, setWidgetList] = useState<widget[]>([]);
 
   const getNextWidgetList = async () => {
@@ -39,7 +38,6 @@ const Divar = () => {
         <Search setSearchValue={setSearchValue} />
         {'suggestion_list' in apiData && (
           <Suggestion
-            setCategory={setCategory}
             suggestion_list={apiData.suggestion_list}
           />
         )}

@@ -12,6 +12,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import enamadLogo from './images/enamad.jpg';
 import majaziLogo from './images/majazi.png';
 import samandehiLogo from './images/samandehi.jpg';
+import { Link } from 'react-router-dom';
 import {
   Box,
   FormControl,
@@ -109,7 +110,7 @@ export default function VerticalNavbar() {
   const classes = useStyles();
   const [checked, setChecked] = React.useState(false);
   const [age, setAge] = React.useState('');
-  const { apiData } = useContext(DivarContext);
+  const { apiData, city, setCategory } = useContext(DivarContext);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
@@ -122,14 +123,22 @@ export default function VerticalNavbar() {
         <List>
           <Typography className={classes.category}>دسته بندی ها</Typography>
           {categories.map((category, index) => (
-            <ListItem button key={category.name} className={classes.listItem}>
-              <ListItemIcon>{category.icon()}</ListItemIcon>
-              <ListItemText
-                style={{ marginRight: '-30px' }}
-                classes={{ primary: classes.listItemText }}
-                primary={category.name}
-              />
-            </ListItem>
+            <Link
+              style={{ textDecorationLine: 'none' }}
+              to={`/${city}/${category.value}`}
+              onClick={() => {
+                setCategory(category.value);
+              }}
+            >
+              <ListItem button key={category.name} className={classes.listItem}>
+                <ListItemIcon>{category.icon()}</ListItemIcon>
+                <ListItemText
+                  style={{ marginRight: '-30px' }}
+                  classes={{ primary: classes.listItemText }}
+                  primary={category.name}
+                />
+              </ListItem>
+            </Link>
           ))}
         </List>
         <Divider />

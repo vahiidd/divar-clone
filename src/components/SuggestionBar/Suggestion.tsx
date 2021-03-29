@@ -34,12 +34,11 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface propsType {
   suggestion_list: suggestion[];
-  setCategory: Function;
 }
 
-const Suggestion: React.FC<propsType> = ({ suggestion_list, setCategory }) => {
+const Suggestion: React.FC<propsType> = ({ suggestion_list }) => {
   const classes = useStyles();
-  const { city } = useContext(DivarContext);
+  const { city, setCategory } = useContext(DivarContext);
   return (
     <div>
       <Box className={classes.sugBar}>

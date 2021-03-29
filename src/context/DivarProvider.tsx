@@ -10,12 +10,16 @@ import {
 import { api } from '../api/api_types';
 
 export const DivarContext = createContext<{
+  category: string;
+  setCategory: Dispatch<SetStateAction<string>>;
   city: string | undefined;
   setCity: Dispatch<SetStateAction<string | undefined>>;
   apiData: api;
   getApiData: Function;
   url: string;
 }>({
+  category: '',
+  setCategory: () => {},
   city: undefined,
   setCity: () => {},
   apiData: {},
@@ -27,9 +31,10 @@ const DivarProvider: React.FC = ({ children }) => {
   const [apiData, setApiData] = useState<api>({});
   const [city, setCity] = useState(() => Cookies.get('city'));
   const [nextPage, setNextPage] = useState('');
+  const [category, setCategory] = useState('');
   const url = `https://api.divar.ir/v8/web-search/${city}`;
   const getApiData = useCallback(
-    async (search: string, category: string, next?: boolean) => {
+    async (search: string, next?: boolean) => {
       const qSearch = search ? '?q=' + search : '';
       const qNext = next ? '?' + nextPage : '';
       try {
@@ -45,15 +50,17 @@ const DivarProvider: React.FC = ({ children }) => {
         console.error(error);
       }
     },
-    [nextPage, url]
+    [category, nextPage, url]
   );
 
   useEffect(() => {
-    getApiData('', '');
+    getApiData('');
   }, [getApiData]);
 
   return (
-    <DivarContext.Provider value={{ city, setCity, apiData, getApiData, url }}>
+    <DivarContext.Provider
+      value={{ category, setCategory, city, setCity, apiData, getApiData, url }}
+    >
       {children}
     </DivarContext.Provider>
   );
