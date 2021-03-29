@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import { suggestion } from '../../api/api_types';
+import { Link } from 'react-router-dom';
+import { DivarContext } from '../../context/DivarProvider';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -37,21 +39,27 @@ interface propsType {
 
 const Suggestion: React.FC<propsType> = ({ suggestion_list, setCategory }) => {
   const classes = useStyles();
+  const { city } = useContext(DivarContext);
   return (
     <div>
       <Box className={classes.sugBar}>
         {suggestion_list.map((suggestion) => (
-          <Button
-            key={suggestion.displayed_text}
-            variant='outlined'
-            size='small'
-            className={classes.button}
-            onClick={() => {
-              setCategory(suggestion.value.category.value);
-            }}
+          <Link
+            style={{ textDecoration: 'none' }}
+            to={`/${city}/${suggestion.value.category.value}`}
           >
-            {suggestion.displayed_text}
-          </Button>
+            <Button
+              key={suggestion.displayed_text}
+              variant='outlined'
+              size='small'
+              className={classes.button}
+              onClick={() => {
+                setCategory(suggestion.value.category.value);
+              }}
+            >
+              {suggestion.displayed_text}
+            </Button>
+          </Link>
         ))}
       </Box>
     </div>

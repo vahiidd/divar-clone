@@ -109,14 +109,12 @@ export default function CitiesModal() {
 
   return (
     <>
-      <Link style={{ textDecoration: 'none' }} to='/tehran'>
-        <Button className={classes.cityButton} onClick={handleModalOpen}>
-          <LocationOnIcon />
-          {city
-            ? preLoad.city.compressedData.find((x) => x[2] === city)![1]
-            : null}
-        </Button>
-      </Link>
+      <Button className={classes.cityButton} onClick={handleModalOpen}>
+        <LocationOnIcon />
+        {city
+          ? preLoad.city.compressedData.find((x) => x[2] === city)![1]
+          : null}
+      </Button>
       <Modal
         aria-labelledby='transition-modal-title'
         aria-describedby='transition-modal-description'
@@ -160,17 +158,19 @@ export default function CitiesModal() {
                 {preLoad.city.compressedData
                   .filter((city) => (city[1] as string).includes(input))
                   .map((city) => (
-                    <Button
-                      onClick={() => {
-                        handleModalClose();
-                        setCity(city[2] as string);
-                        Cookies.set('city', city[2] as string);
-                      }}
-                      variant='outlined'
-                      className={classes.cityBtn}
-                    >
-                      {city[1]}
-                    </Button>
+                    <Link style={{ textDecoration: 'none' }} to={`/${city[2]}`}>
+                      <Button
+                        onClick={() => {
+                          handleModalClose();
+                          setCity(city[2] as string);
+                          Cookies.set('city', city[2] as string);
+                        }}
+                        variant='outlined'
+                        className={classes.cityBtn}
+                      >
+                        {city[1]}
+                      </Button>
+                    </Link>
                   ))}
               </>
             ) : (
@@ -184,17 +184,19 @@ export default function CitiesModal() {
                 <Box>
                   {/* @ts-ignore */}
                   {topCities.map((city) => (
-                    <Button
-                      onClick={() => {
-                        handleModalClose();
-                        setCity(city[1]);
-                        Cookies.set('city', city[1]);
-                      }}
-                      variant='outlined'
-                      className={classes.cityBtn}
-                    >
-                      {city[0]}
-                    </Button>
+                    <Link style={{ textDecoration: 'none' }} to={`/${city[1]}`}>
+                      <Button
+                        onClick={() => {
+                          handleModalClose();
+                          setCity(city[1]);
+                          Cookies.set('city', city[1]);
+                        }}
+                        variant='outlined'
+                        className={classes.cityBtn}
+                      >
+                        {city[0]}
+                      </Button>
+                    </Link>
                   ))}
                 </Box>
                 <p
@@ -205,17 +207,19 @@ export default function CitiesModal() {
                 </p>
                 {/* @ts-ignore */}
                 {preLoad.city.compressedData.map((city) => (
-                  <Button
-                    onClick={() => {
-                      handleModalClose();
-                      setCity(city[2] as string);
-                      Cookies.set('city', city[2] as string);
-                    }}
-                    variant='outlined'
-                    className={classes.cityBtn}
-                  >
-                    {city[1]}
-                  </Button>
+                  <Link style={{ textDecoration: 'none' }} to={`/${city[2]}`}>
+                    <Button
+                      onClick={() => {
+                        handleModalClose();
+                        setCity(city[2] as string);
+                        Cookies.set('city', city[2] as string);
+                      }}
+                      variant='outlined'
+                      className={classes.cityBtn}
+                    >
+                      {city[1]}
+                    </Button>
+                  </Link>
                 ))}
               </>
             )}

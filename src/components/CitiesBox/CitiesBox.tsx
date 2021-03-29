@@ -3,6 +3,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { Box, Button, TextField } from '@material-ui/core';
 import { preLoad } from '../../api/preLoadData';
 import { DivarContext } from '../../context/DivarProvider';
+import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
 const topCities = [
@@ -99,16 +100,18 @@ const CitiesBox = () => {
           {preLoad.city.compressedData
             .filter((city) => (city[1] as string).includes(input))
             .map((city) => (
-              <Button
-                onClick={() => {
-                  setCity(city[2] as string);
-                  Cookies.set('city', city[2] as string);
-                }}
-                variant='outlined'
-                className={classes.cityBtn}
-              >
-                {city[1]}
-              </Button>
+              <Link style={{textDecoration: 'none'}} to={`/${city[2]}`}>
+                <Button
+                  onClick={() => {
+                    setCity(city[2] as string);
+                    Cookies.set('city', city[2] as string);
+                  }}
+                  variant='outlined'
+                  className={classes.cityBtn}
+                >
+                  {city[1]}
+                </Button>
+              </Link>
             ))}
         </>
       ) : (
@@ -122,16 +125,18 @@ const CitiesBox = () => {
           <Box>
             {/* @ts-ignore */}
             {topCities.map((city) => (
-              <Button
-                onClick={() => {
-                  setCity(city[1]);
-                  Cookies.set('city', city[1]);
-                }}
-                variant='outlined'
-                className={classes.cityBtn}
-              >
-                {city[0]}
-              </Button>
+              <Link style={{ textDecoration: 'none' }} to={`/${city[1]}`}>
+                <Button
+                  onClick={() => {
+                    setCity(city[1]);
+                    Cookies.set('city', city[1]);
+                  }}
+                  variant='outlined'
+                  className={classes.cityBtn}
+                >
+                  {city[0]}
+                </Button>
+              </Link>
             ))}
           </Box>
           <p
@@ -141,16 +146,18 @@ const CitiesBox = () => {
             همه شهر ها
           </p>
           {preLoad.city.compressedData.map((city) => (
-            <Button
-              onClick={() => {
-                setCity(city[2] as string);
-                Cookies.set('city', city[2] as string);
-              }}
-              variant='outlined'
-              className={classes.cityBtn}
-            >
-              {city[1]}
-            </Button>
+            <Link style={{ textDecoration: 'none' }} to={`/${city[2]}`}>
+              <Button
+                onClick={() => {
+                  setCity(city[2] as string);
+                  Cookies.set('city', city[2] as string);
+                }}
+                variant='outlined'
+                className={classes.cityBtn}
+              >
+                {city[1]}
+              </Button>
+            </Link>
           ))}
         </>
       )}

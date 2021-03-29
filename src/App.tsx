@@ -11,7 +11,9 @@ import Cookies from 'js-cookie';
 
 function App() {
   const { city } = useContext(DivarContext);
-  const [isSelectCity, setIsSelectCity] = useState(Boolean(Cookies.get('city')));
+  const [isSelectCity, setIsSelectCity] = useState(
+    Boolean(Cookies.get('city'))
+  );
   useEffect(() => {
     setIsSelectCity(Boolean(city));
   }, [city]);
@@ -26,7 +28,7 @@ function App() {
                 <ProductPage />
               </ProductProvider>
             </Route>
-            <Route path='/' component={Divar} />
+            <Route path='/:city:category' component={Divar} />
           </Switch>
         ) : (
           <CitiesBox />

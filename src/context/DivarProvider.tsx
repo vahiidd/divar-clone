@@ -14,11 +14,13 @@ export const DivarContext = createContext<{
   setCity: Dispatch<SetStateAction<string | undefined>>;
   apiData: api;
   getApiData: Function;
+  url: string;
 }>({
   city: undefined,
   setCity: () => {},
   apiData: {},
   getApiData: () => {},
+  url: '',
 });
 
 const DivarProvider: React.FC = ({ children }) => {
@@ -51,7 +53,7 @@ const DivarProvider: React.FC = ({ children }) => {
   }, [getApiData]);
 
   return (
-    <DivarContext.Provider value={{ city, setCity, apiData, getApiData }}>
+    <DivarContext.Provider value={{ city, setCity, apiData, getApiData, url }}>
       {children}
     </DivarContext.Provider>
   );
