@@ -10,39 +10,55 @@ import LocalShippingOutlinedIcon from '@material-ui/icons/LocalShippingOutlined'
 import WeekendOutlinedIcon from '@material-ui/icons/WeekendOutlined';
 
 const categories = [
-  { name: 'املاک', icon: () => <HomeWorkOutlinedIcon fontSize='small' /> },
+  {
+    name: 'املاک',
+    icon: () => <HomeWorkOutlinedIcon fontSize='small' />,
+    value: 'real-estate',
+  },
   {
     name: 'وسایل نقلیه',
     icon: () => <DriveEtaOutlinedIcon fontSize='small' />,
+    value: 'vehicles',
   },
   {
     name: 'لوازم الکترونیکی',
     icon: () => <PhoneIphoneOutlinedIcon fontSize='small' />,
+    value: 'electronic-devices',
   },
   {
     name: 'مربوط به خانه',
     icon: () => <WeekendOutlinedIcon fontSize='small' />,
+    value: 'home-and-kitchen',
   },
-  { name: 'خدمات', icon: () => <LocalShippingOutlinedIcon fontSize='small' /> },
+  {
+    name: 'خدمات',
+    icon: () => <LocalShippingOutlinedIcon fontSize='small' />,
+    value: 'services',
+  },
   {
     name: 'وسایل شخصی',
     icon: () => <WatchOutlinedIcon fontSize='small' />,
+    value: 'personal-goods',
   },
   {
     name: 'سرگرمی و فراغت',
     icon: () => <CasinoOutlinedIcon fontSize='small' />,
+    value: 'entertainment',
   },
   {
     name: 'اجتماعی',
     icon: () => <PeopleAltOutlinedIcon fontSize='small' />,
+    value: 'social-services',
   },
   {
     name: 'برای کسب و کار',
     icon: () => <EventSeatOutlinedIcon fontSize='small' />,
+    value: 'businesses',
   },
   {
     name: 'استخدام و کاریابی',
     icon: () => <BusinessCenterOutlinedIcon fontSize='small' />,
+    value: 'jobs',
   },
 ];
 
