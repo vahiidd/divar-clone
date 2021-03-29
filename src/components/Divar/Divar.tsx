@@ -16,7 +16,7 @@ const Divar = () => {
 
   const getNextWidgetList = async () => {
     // (() => {
-    if (await getApiData(searchValue, category, true)) {
+    if (await getApiData(searchValue, true)) {
       if ('widget_list' in apiData)
         setWidgetList((pre) => pre.concat(apiData.widget_list));
     }
@@ -24,7 +24,7 @@ const Divar = () => {
   };
 
   useEffect(() => {
-    getApiData(searchValue, category);
+    getApiData(searchValue);
     setWidgetList([]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category, searchValue, city]);
@@ -37,9 +37,7 @@ const Divar = () => {
       <Grid xs={9}>
         <Search setSearchValue={setSearchValue} />
         {'suggestion_list' in apiData && (
-          <Suggestion
-            suggestion_list={apiData.suggestion_list}
-          />
+          <Suggestion suggestion_list={apiData.suggestion_list} />
         )}
 
         {'widget_list' in apiData ? (
