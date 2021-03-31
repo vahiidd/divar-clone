@@ -5,27 +5,28 @@ import Suggestion from '../SuggestionBar/Suggestion';
 import BannerList from '../Banner/BannerList';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import { DivarContext } from '../../context/DivarProvider';
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { widget } from '../../api/api_types';
 
 const Divar = () => {
-  const { apiData, getApiData, city, category, navbarSwitch } = useContext(
-    DivarContext
-  );
+  const {
+    apiData,
+    getApiData,
+    city,
+    category,
+    navbarSwitch,
+    widgetList,
+    setWidgetList,
+  } = useContext(DivarContext);
   const [searchValue, setSearchValue] = useState('');
-  const [widgetList, setWidgetList] = useState<widget[]>([]);
 
-  const getNextWidgetList = async () => {
-    if (await getApiData(searchValue, true)) {
-      if ('widget_list' in apiData)
-        setWidgetList((pre) => pre.concat(apiData.widget_list));
-    }
+  const getNextWidgetList =  () => {
+    getApiData(searchValue);
   };
 
   useEffect(() => {
-    getApiData(searchValue);
     setWidgetList([]);
+    getApiData(searchValue);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category, searchValue, city, navbarSwitch]);
 
@@ -40,18 +41,14 @@ const Divar = () => {
           <Suggestion suggestion_list={apiData.suggestion_list} />
         )}
 
-        {'widget_list' in apiData ? (
+        {widgetList.length ? (
           <InfiniteScroll
             dataLength={widgetList.length}
             next={getNextWidgetList}
             hasMore={true}
             loader={<LoadingSpinner />}
           >
-            <BannerList
-              widget_list={
-                widgetList.length === 0 ? apiData.widget_list : widgetList
-              }
-            />
+            <BannerList widget_list={widgetList} />
           </InfiniteScroll>
         ) : (
           <LoadingSpinner />
