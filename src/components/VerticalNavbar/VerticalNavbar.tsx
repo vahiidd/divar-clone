@@ -108,12 +108,20 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function VerticalNavbar() {
   const classes = useStyles();
-  const [checked, setChecked] = React.useState(false);
   const [age, setAge] = React.useState('');
-  const { apiData, city, setCategory } = useContext(DivarContext);
+  const {
+    apiData,
+    city,
+    setCategory,
+    setNavbarSwitch,
+    navbarSwitch,
+  } = useContext(DivarContext);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setChecked(event.target.checked);
+    setNavbarSwitch((pre) => ({
+      ...pre,
+      [event.target.name]: event.target.checked,
+    }));
   };
 
   return (
@@ -145,7 +153,7 @@ export default function VerticalNavbar() {
         <FormControlLabel
           control={
             <Switch
-              checked={checked}
+              checked={navbarSwitch[SwitchNames.STORE]}
               onChange={handleChange}
               name={SwitchNames.STORE}
             />
@@ -210,7 +218,7 @@ export default function VerticalNavbar() {
         <FormControlLabel
           control={
             <Switch
-              checked={checked}
+              checked={navbarSwitch[SwitchNames.PHOTO]}
               onChange={handleChange}
               name={SwitchNames.PHOTO}
             />
@@ -224,7 +232,7 @@ export default function VerticalNavbar() {
         <FormControlLabel
           control={
             <Switch
-              checked={checked}
+              checked={navbarSwitch[SwitchNames.INSTANT]}
               onChange={handleChange}
               name={SwitchNames.INSTANT}
             />

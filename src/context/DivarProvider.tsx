@@ -10,12 +10,20 @@ import {
 import { api } from '../api/api_types';
 
 export enum SwitchNames {
-  STORE = 'store',
+  STORE = 'فروشگاه ',
   PHOTO = 'photo',
-  INSTANT = 'instant',
+  INSTANT = 'فوری ',
+}
+
+export interface switchType {
+  [SwitchNames.INSTANT]: boolean;
+  [SwitchNames.PHOTO]: boolean;
+  [SwitchNames.STORE]: boolean;
 }
 
 export const DivarContext = createContext<{
+  navbarSwitch: switchType;
+  setNavbarSwitch: Dispatch<SetStateAction<switchType>>;
   category: string;
   setCategory: Dispatch<SetStateAction<string>>;
   city: string | undefined;
@@ -24,6 +32,12 @@ export const DivarContext = createContext<{
   getApiData: Function;
   url: string;
 }>({
+  navbarSwitch: {
+    [SwitchNames.INSTANT]: false,
+    [SwitchNames.PHOTO]: false,
+    [SwitchNames.STORE]: false,
+  },
+  setNavbarSwitch: () => {},
   category: '',
   setCategory: () => {},
   city: undefined,
@@ -38,6 +52,11 @@ const DivarProvider: React.FC = ({ children }) => {
   const [city, setCity] = useState(() => Cookies.get('city'));
   const [nextPage, setNextPage] = useState('');
   const [category, setCategory] = useState('');
+  const [navbarSwitch, setNavbarSwitch] = useState<switchType>({
+    [SwitchNames.INSTANT]: false,
+    [SwitchNames.PHOTO]: false,
+    [SwitchNames.STORE]: false,
+  });
   const url = `https://api.divar.ir/v8/web-search/${city}`;
   const getApiData = useCallback(
     async (search: string, next?: boolean) => {
@@ -65,7 +84,17 @@ const DivarProvider: React.FC = ({ children }) => {
 
   return (
     <DivarContext.Provider
-      value={{ category, setCategory, city, setCity, apiData, getApiData, url }}
+      value={{
+        navbarSwitch,
+        setNavbarSwitch,
+        category,
+        setCategory,
+        city,
+        setCity,
+        apiData,
+        getApiData,
+        url,
+      }}
     >
       {children}
     </DivarContext.Provider>
