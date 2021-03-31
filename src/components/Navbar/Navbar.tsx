@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import {
   AppBar,
@@ -15,6 +15,7 @@ import Logo from '../../logo/logo.svg';
 import { Link } from 'react-router-dom';
 import styles from '../../styles/App.module.scss';
 import CitiesModal from '../CitiesModal/CitiesModal';
+import { DivarContext } from '../../context/DivarProvider';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -88,6 +89,7 @@ export default function Navbar() {
   const classes = useStyles();
   const desktop = useMediaQuery('(min-width: 947px)');
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const { city } = useContext(DivarContext);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -99,12 +101,12 @@ export default function Navbar() {
 
   return (
     <div className={classes.root}>
-      <AppBar className={classes.appbar} position="static">
+      <AppBar className={classes.appbar} position='static'>
         <Box className={classes.rightMenu}>
-          <Link className={styles.link} to="/tehran">
+          <Link className={styles.link} to={`/${city}`}>
             <img
               style={{ width: '40px', height: '40px' }}
-              alt="logo"
+              alt='logo'
               src={Logo}
             />
           </Link>
@@ -113,19 +115,19 @@ export default function Navbar() {
         <Toolbar className={classes.toolbar}>
           {desktop && (
             <div>
-              <Link className={styles.link} to="/my-divar/my-posts">
+              <Link className={styles.link} to='/my-divar/my-posts'>
                 <Button className={classes.button}>دیوار من</Button>
               </Link>
-              <Link className={styles.link} to="/chat">
+              <Link className={styles.link} to='/chat'>
                 <Button className={classes.button}>چت</Button>
               </Link>
-              <Link className={styles.link} to="/about">
+              <Link className={styles.link} to='/about'>
                 <Button className={classes.button}>درباره دیوار</Button>
               </Link>
-              <Link className={styles.link} to="/blog">
+              <Link className={styles.link} to='/blog'>
                 <Button className={classes.button}>بلاگ</Button>
               </Link>
-              <Link className={styles.link} to="/support">
+              <Link className={styles.link} to='/support'>
                 <Button className={classes.button}>پشتیبانی</Button>
               </Link>
             </div>
@@ -135,15 +137,15 @@ export default function Navbar() {
             <div>
               <IconButton
                 className={classes.hamburger}
-                aria-controls="simple-menu"
-                aria-haspopup="true"
+                aria-controls='simple-menu'
+                aria-haspopup='true'
                 onClick={handleClick}
               >
                 <MenuIcon />
               </IconButton>
               <Menu
                 className={classes.menuHamburger}
-                id="simple-menu"
+                id='simple-menu'
                 anchorEl={anchorEl}
                 keepMounted
                 open={Boolean(anchorEl)}
