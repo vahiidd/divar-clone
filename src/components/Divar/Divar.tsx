@@ -15,12 +15,10 @@ const Divar = () => {
   const [widgetList, setWidgetList] = useState<widget[]>([]);
 
   const getNextWidgetList = async () => {
-    // (() => {
     if (await getApiData(searchValue, true)) {
       if ('widget_list' in apiData)
         setWidgetList((pre) => pre.concat(apiData.widget_list));
     }
-    // })();
   };
 
   useEffect(() => {

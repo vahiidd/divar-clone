@@ -9,6 +9,12 @@ import {
 } from 'react';
 import { api } from '../api/api_types';
 
+export enum SwitchNames {
+  STORE = 'store',
+  PHOTO = 'photo',
+  INSTANT = 'instant',
+}
+
 export const DivarContext = createContext<{
   category: string;
   setCategory: Dispatch<SetStateAction<string>>;

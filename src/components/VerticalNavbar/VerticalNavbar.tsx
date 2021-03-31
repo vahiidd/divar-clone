@@ -22,7 +22,7 @@ import {
   Select,
   Switch,
 } from '@material-ui/core';
-import { DivarContext } from '../../context/DivarProvider';
+import { DivarContext, SwitchNames } from '../../context/DivarProvider';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -144,7 +144,11 @@ export default function VerticalNavbar() {
         <Divider />
         <FormControlLabel
           control={
-            <Switch checked={checked} onChange={handleChange} name='checkedA' />
+            <Switch
+              checked={checked}
+              onChange={handleChange}
+              name={SwitchNames.STORE}
+            />
           }
           classes={{ label: classes.formControlLabelText }}
           className={classes.formControlLabel}
@@ -205,7 +209,11 @@ export default function VerticalNavbar() {
         <Divider />
         <FormControlLabel
           control={
-            <Switch checked={checked} onChange={handleChange} name='checkedA' />
+            <Switch
+              checked={checked}
+              onChange={handleChange}
+              name={SwitchNames.PHOTO}
+            />
           }
           className={classes.formControlLabel}
           classes={{ label: classes.formControlLabelText }}
@@ -215,7 +223,11 @@ export default function VerticalNavbar() {
         <Divider />
         <FormControlLabel
           control={
-            <Switch checked={checked} onChange={handleChange} name='checkedA' />
+            <Switch
+              checked={checked}
+              onChange={handleChange}
+              name={SwitchNames.INSTANT}
+            />
           }
           className={classes.formControlLabel}
           classes={{ label: classes.formControlLabelText }}
