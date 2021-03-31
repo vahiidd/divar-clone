@@ -232,9 +232,9 @@ export default function VerticalNavbar() {
         <FormControlLabel
           control={
             <Switch
-              checked={navbarSwitch[SwitchNames.INSTANT]}
+              checked={navbarSwitch[SwitchNames.URGENT]}
               onChange={handleChange}
-              name={SwitchNames.INSTANT}
+              name={SwitchNames.URGENT}
             />
           }
           className={classes.formControlLabel}

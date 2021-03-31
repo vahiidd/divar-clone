@@ -10,13 +10,13 @@ import {
 import { api } from '../api/api_types';
 
 export enum SwitchNames {
-  STORE = 'فروشگاه ',
-  PHOTO = 'photo',
-  INSTANT = 'فوری ',
+  STORE = 'is-store=true',
+  PHOTO = 'has-photo=true',
+  URGENT = 'urgent=true',
 }
 
 export interface switchType {
-  [SwitchNames.INSTANT]: boolean;
+  [SwitchNames.URGENT]: boolean;
   [SwitchNames.PHOTO]: boolean;
   [SwitchNames.STORE]: boolean;
 }
@@ -33,7 +33,7 @@ export const DivarContext = createContext<{
   url: string;
 }>({
   navbarSwitch: {
-    [SwitchNames.INSTANT]: false,
+    [SwitchNames.URGENT]: false,
     [SwitchNames.PHOTO]: false,
     [SwitchNames.STORE]: false,
   },
@@ -53,7 +53,7 @@ const DivarProvider: React.FC = ({ children }) => {
   const [nextPage, setNextPage] = useState('');
   const [category, setCategory] = useState('');
   const [navbarSwitch, setNavbarSwitch] = useState<switchType>({
-    [SwitchNames.INSTANT]: false,
+    [SwitchNames.URGENT]: false,
     [SwitchNames.PHOTO]: false,
     [SwitchNames.STORE]: false,
   });
@@ -61,11 +61,22 @@ const DivarProvider: React.FC = ({ children }) => {
   const getApiData = useCallback(
     async (search: string, next?: boolean) => {
       const qSearch = search ? '?q=' + search : '';
-      const qNext = next ? '?' + nextPage : '';
+      let qNext = next ? nextPage : '';
+      let filter = '';
+      Object.entries(navbarSwitch).forEach(([key, value]) => {
+        if (value) {
+          if (filter.length) filter += '&';
+          filter += key;
+        }
+      });
+      if (filter.length) {
+        filter = '?' + filter;
+        if (next) qNext = '&' + qNext;
+      } else if (next) qNext = '?' + qNext;
       try {
         const fetchUrl = category
-          ? `${url}/${category}${qSearch}${qNext}`
-          : `${url}${qSearch}${qNext}`;
+          ? `${url}/${category}${filter}${qNext}${qSearch}`
+          : `${url}${filter}${qNext}${qSearch}`;
         const response = await fetch(fetchUrl);
         const data = await response.json();
         setApiData(data);
@@ -75,7 +86,7 @@ const DivarProvider: React.FC = ({ children }) => {
         console.error(error);
       }
     },
-    [category, nextPage, url]
+    [category, navbarSwitch, nextPage, url]
   );
 
   useEffect(() => {

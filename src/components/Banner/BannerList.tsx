@@ -5,7 +5,7 @@ import Banner from './BannerItem';
 import { widget } from '../../api/api_types';
 import { Box, Divider, Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import { DivarContext, SwitchNames } from '../../context/DivarProvider';
+import { DivarContext } from '../../context/DivarProvider';
 import { preLoad } from '../../api/preLoadData';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -34,7 +34,7 @@ interface propsType {
 
 const BannerList: React.FC<propsType> = ({ widget_list }) => {
   const classes = useStyles();
-  const { city, navbarSwitch } = useContext(DivarContext);
+  const { city } = useContext(DivarContext);
   const cityName = city
     ? preLoad.city.compressedData.find((x) => x[2] === city)![1]
     : '';
@@ -48,32 +48,22 @@ const BannerList: React.FC<propsType> = ({ widget_list }) => {
         <Divider style={{ width: '98%', margin: '0 auto' }} />
       </Box>
       <Grid container>
-        {widget_list
-          .filter(
-            (widget) =>
-              ((widget.data.red_text === SwitchNames.INSTANT ||
-                !navbarSwitch[SwitchNames.INSTANT]) &&
-                (widget.data.red_text === SwitchNames.STORE ||
-                  !navbarSwitch[SwitchNames.STORE]) &&
-                (widget.data.image ||
-              !navbarSwitch[SwitchNames.PHOTO]))
-          )
-          .map((widget) => (
-            <Grid
-              key={widget.data.token}
-              className={classes.spacing}
-              item
-              xs={12}
-              md={6}
+        {widget_list.map((widget) => (
+          <Grid
+            key={widget.data.token}
+            className={classes.spacing}
+            item
+            xs={12}
+            md={6}
+          >
+            <Link
+              style={{ textDecoration: 'none' }}
+              to={`/ProductPage/${widget.data.token}`}
             >
-              <Link
-                style={{ textDecoration: 'none' }}
-                to={`/ProductPage/${widget.data.token}`}
-              >
-                <Banner {...widget} />
-              </Link>
-            </Grid>
-          ))}
+              <Banner {...widget} />
+            </Link>
+          </Grid>
+        ))}
       </Grid>
     </div>
   );
