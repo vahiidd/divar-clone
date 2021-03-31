@@ -21,7 +21,7 @@ const Divar = () => {
   const [searchValue, setSearchValue] = useState('');
 
   const getNextWidgetList =  () => {
-    getApiData(searchValue);
+    getApiData(searchValue, true);
   };
 
   useEffect(() => {
