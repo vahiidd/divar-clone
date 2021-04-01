@@ -2,6 +2,7 @@ import Box from '@material-ui/core/Box';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { FormEvent, useState } from 'react';
+import { useHistory, useLocation } from 'react-router';
 import MegaMenu from '../MegaMenu/MegaMenu';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -34,9 +35,11 @@ const Search: React.FC<{
 }> = ({ setSearchValue }) => {
   const classes = useStyles();
   const [search, setSearch] = useState('');
+  const history = useHistory();
 
   const submitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    history.push(`?q=${search}`);
     setSearchValue(search);
   };
 
