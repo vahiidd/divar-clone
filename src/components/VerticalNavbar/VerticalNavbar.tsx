@@ -163,33 +163,38 @@ export default function VerticalNavbar() {
           label='فقط آگهی های فروشگاه'
           labelPlacement='start'
         />
-        <Accordion>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls='panel1a-content'
-            id='panel1a-header'
-          >
-            <Typography className={classes.heading}>محل</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <FormControl className={classes.formControl}>
-              <InputLabel className={classes.inputLabel}>
-                همه محله ها
-              </InputLabel>
-              <Select
-                onChange={(event: React.ChangeEvent<{ value: unknown }>) => {
-                  setAge(event.target.value as string);
-                }}
-              >
-                {'schema' in apiData
-                  ? apiData.schema.json_schema.properties.districts.properties.vacancies.items.enumNames.map(
-                      (name) => <MenuItem>{name}</MenuItem>
+
+        {'schema' in apiData &&
+        'districts' in apiData.schema.json_schema.properties ? (
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls='panel1a-content'
+              id='panel1a-header'
+            >
+              <Typography className={classes.heading}>محل</Typography>
+            </AccordionSummary>
+
+            <AccordionDetails>
+              <FormControl className={classes.formControl}>
+                <InputLabel className={classes.inputLabel}>
+                  همه محله ها
+                </InputLabel>
+                <Select
+                  onChange={(event: React.ChangeEvent<{ value: unknown }>) => {
+                    setAge(event.target.value as string);
+                  }}
+                >
+                  {apiData.schema.json_schema.properties.districts.properties.vacancies.items.enumNames.map(
+                    (name) => (
+                      <MenuItem>{name}</MenuItem>
                     )
-                  : null}
-              </Select>
-            </FormControl>
-          </AccordionDetails>
-        </Accordion>
+                  )}
+                </Select>
+              </FormControl>
+            </AccordionDetails>
+          </Accordion>
+        ) : null}
         <Accordion>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
