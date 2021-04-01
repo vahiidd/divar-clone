@@ -57,7 +57,7 @@ const DivarProvider: React.FC = ({ children }) => {
   });
   const url = `https://api.divar.ir/v8/web-search/${city}`;
   const getApiData = (search: string, next = false) => {
-    const qSearch = search ? '?q=' + search : '';
+    let qSearch = search ? 'q=' + search : '';
     let qNext = next ? nextPage : '';
     let filter = '';
     Object.entries(navbarSwitch).forEach(([key, value]) => {
@@ -69,7 +69,11 @@ const DivarProvider: React.FC = ({ children }) => {
     if (filter.length) {
       filter = '?' + filter;
       if (next) qNext = '&' + qNext;
-    } else if (next) qNext = '?' + qNext;
+    } else if (qNext.length) qNext = '?' + qNext;
+
+    if (filter.length || qNext.length) qSearch = '&' + qSearch;
+    else if (qSearch.length) qSearch = '?' + qSearch;
+
     const fetchUrl = category
       ? `${url}/${category}${filter}${qNext}${qSearch}`
       : `${url}${filter}${qNext}${qSearch}`;
