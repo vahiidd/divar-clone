@@ -7,24 +7,30 @@ import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import { DivarContext } from '../../context/DivarProvider';
 import React, { useContext, useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { useParams } from 'react-router';
+import Cookies from 'js-cookie';
 
 const Divar = () => {
   const {
     apiData,
     getApiData,
     city,
+    setCity,
     category,
     navbarSwitch,
     widgetList,
     setWidgetList,
   } = useContext(DivarContext);
   const [searchValue, setSearchValue] = useState('');
+  const cityParam: { city: string } = useParams();
 
-  const getNextWidgetList =  () => {
+  const getNextWidgetList = () => {
     getApiData(searchValue, true);
   };
 
   useEffect(() => {
+    setCity(cityParam.city);
+    Cookies.set('city', cityParam.city);
     setWidgetList([]);
     getApiData(searchValue);
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -28,7 +28,7 @@ function App() {
                 <ProductPage />
               </ProductProvider>
             </Route>
-            <Route path='/:city:category' component={Divar} />
+            <Route path='/:city' component={Divar} />
           </Switch>
         ) : (
           <CitiesBox />

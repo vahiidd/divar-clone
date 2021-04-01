@@ -1,5 +1,10 @@
 import Cookies from 'js-cookie';
-import { createContext, Dispatch, SetStateAction, useState } from 'react';
+import {
+  createContext,
+  Dispatch,
+  SetStateAction,
+  useState,
+} from 'react';
 import { api, widget } from '../api/api_types';
 
 export enum SwitchNames {
@@ -83,7 +88,11 @@ const DivarProvider: React.FC = ({ children }) => {
         const data = await response.json();
         setApiData(data);
         setNextPage(data.seo_details.next.split('?')[1]);
-        setWidgetList((pre) => pre.concat(data.widget_list));
+        if (next) {
+          setWidgetList((pre) => pre.concat(data.widget_list));
+        } else {
+          setWidgetList(data.widget_list);
+        }
       } catch (error) {
         console.error(error);
       }
