@@ -33,8 +33,10 @@ const Divar = () => {
   useEffect(() => {
     setCity(cityParam.city);
     if (location.search) setSearchValue(location.search.split('=')[1]);
+    else setSearchValue('');
     const pathNameSplit = location.pathname.split('/');
     if (pathNameSplit.length === 3) setCategory(pathNameSplit[2]);
+    else setCategory('');
     Cookies.set('city', cityParam.city);
     setWidgetList([]);
     getApiData(searchValue);
