@@ -7,7 +7,7 @@ import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import { DivarContext } from '../../context/DivarProvider';
 import React, { useContext, useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { useParams } from 'react-router';
+import { useLocation, useParams } from 'react-router';
 import Cookies from 'js-cookie';
 
 const Divar = () => {
@@ -17,12 +17,14 @@ const Divar = () => {
     city,
     setCity,
     category,
+    setCategory,
     navbarSwitch,
     widgetList,
     setWidgetList,
   } = useContext(DivarContext);
   const [searchValue, setSearchValue] = useState('');
   const cityParam: { city: string } = useParams();
+  const location = useLocation();
 
   const getNextWidgetList = () => {
     getApiData(searchValue, true);
@@ -30,6 +32,9 @@ const Divar = () => {
 
   useEffect(() => {
     setCity(cityParam.city);
+    if (location.search) setSearchValue(location.search.split('=')[1]);
+    const pathNameSplit = location.pathname.split('/');
+    if (pathNameSplit.length === 3) setCategory(pathNameSplit[2]);
     Cookies.set('city', cityParam.city);
     setWidgetList([]);
     getApiData(searchValue);
