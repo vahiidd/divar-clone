@@ -41,7 +41,14 @@ const Divar = () => {
     setWidgetList([]);
     getApiData(searchValue);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [category, searchValue, city, navbarSwitch]);
+  }, [
+    category,
+    searchValue,
+    city,
+    navbarSwitch,
+    location.pathname,
+    location.search,
+  ]);
 
   return (
     <Grid container>
