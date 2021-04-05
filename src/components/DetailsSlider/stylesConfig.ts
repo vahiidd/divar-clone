@@ -402,70 +402,6 @@ export const swiperStyle = css`
 
   /* Scrollbar */
 
-  .swiper-scrollbar {
-    border-radius: 10px;
-    position: relative;
-    background: rgba(0, 0, 0, 0.1);
-  }
-
-  .swiper-container-horizontal > .swiper-scrollbar {
-    position: absolute;
-    left: 2%;
-    bottom: 16px;
-    z-index: 50;
-    height: 8px;
-    width: 96%;
-  }
-
-  .swiper-container-vertical > .swiper-scrollbar {
-    position: absolute;
-    right: 10px;
-    top: 5%;
-    z-index: 50;
-    width: 8px;
-    height: 90%;
-  }
-
-  .swiper-scrollbar-drag {
-    position: relative;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
-  }
-
-  .swiper-scrollbar-cursor-drag {
-    cursor: move;
-  }
-
-  .swiper-scrollbar-lock {
-    display: none;
-  }
-
-  .swiper-zoom-container {
-    display: flex;
-    width: 100%;
-    height: 100%;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    > {
-      img,
-      svg,
-      canvas {
-        max-width: 100%;
-        max-height: 100%;
-        object-fit: contain;
-      }
-    }
-  }
-
-  .swiper-slide-zoomed {
-    cursor: move;
-  }
-
   /* Preloader */
 
   .swiper-lazy-preloader {
@@ -544,8 +480,6 @@ export const globalStyles = css`
     font-size: 16px;
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
-    overflow-y: scroll;
     text-rendering: optimizeLegibility;
     text-size-adjust: 100%;
     padding: 0;

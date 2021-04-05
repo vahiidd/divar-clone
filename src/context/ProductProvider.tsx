@@ -18,7 +18,6 @@ const ProductProvider: React.FC = ({ children }) => {
       const response = await fetch(`${url}/${token}`);
       const data = await response.json();
       setPageData(data);
-      return true;
     } catch (error) {
       console.error(error);
     }

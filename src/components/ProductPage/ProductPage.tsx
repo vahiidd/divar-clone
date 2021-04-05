@@ -32,8 +32,11 @@ const ProductPage = () => {
   const { pageData, getPageData } = useContext(ProductContext);
 
   useEffect(() => {
+    setLoading(true);
     (async () => {
-      setLoading(!(await getPageData(token)));
+      await getPageData(token);
+      window.scrollTo({ top: 0 });
+      setLoading(false);
     })();
   }, [getPageData, token]);
 
