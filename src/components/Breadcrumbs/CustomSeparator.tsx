@@ -55,7 +55,7 @@ export default function CustomSeparator() {
         >
           {pageData.widgets.breadcrumb.categories
             .map(({ title, relative_url }) => (
-              <Link style={{ color: 'gray' }} to={`${relative_url}`}>
+              <Link style={{ color: 'gray' }} to={`/${relative_url}`}>
                 {title}
               </Link>
             ))
