@@ -4,6 +4,7 @@ import Search from '../Search/Search';
 import Suggestion from '../SuggestionBar/Suggestion';
 import BannerList from '../Banner/BannerList';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
+import CitiesBox from '../CitiesBox/CitiesBox';
 import { DivarContext } from '../../context/DivarProvider';
 import React, { useContext, useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';

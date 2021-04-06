@@ -3,8 +3,10 @@ import {
   createContext,
   Dispatch,
   SetStateAction,
+  useEffect,
   useState,
 } from 'react';
+import { useHistory, useLocation } from 'react-router';
 import { api, widget } from '../api/api_types';
 
 export enum SwitchNames {
@@ -98,6 +100,14 @@ const DivarProvider: React.FC = ({ children }) => {
       }
     })();
   };
+
+  const history = useHistory();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (city && location.pathname === '/') history.push(`/${city}`);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <DivarContext.Provider
