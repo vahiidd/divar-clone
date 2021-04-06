@@ -6,7 +6,7 @@ import {
   useEffect,
   useState,
 } from 'react';
-import { useHistory, useLocation } from 'react-router';
+import { useHistory, useLocation, useParams } from 'react-router';
 import { api, widget } from '../api/api_types';
 
 export enum SwitchNames {
@@ -51,11 +51,28 @@ export const DivarContext = createContext<{
   url: '',
 });
 
+const useSetInitialCity = () => {
+  const location = useLocation();
+  const pathnameCity = location.pathname.split('/')[1];
+  if (pathnameCity) {
+    Cookies.set('city', pathnameCity);
+    return pathnameCity;
+  }
+  return Cookies.get('city');
+};
+
+const useSetInitialCategory = () => {
+  const location = useLocation();
+  const pathNameSplit = location.pathname.split('/');
+  if (pathNameSplit.length === 3) return pathNameSplit[2];
+  return '';
+};
+
 const DivarProvider: React.FC = ({ children }) => {
   const [apiData, setApiData] = useState<api>({});
-  const [city, setCity] = useState(() => Cookies.get('city'));
+  const [city, setCity] = useState(useSetInitialCity);
   const [nextPage, setNextPage] = useState('');
-  const [category, setCategory] = useState('');
+  const [category, setCategory] = useState(useSetInitialCategory);
   const [widgetList, setWidgetList] = useState<widget[]>([]);
   const [navbarSwitch, setNavbarSwitch] = useState<switchType>({
     [SwitchNames.URGENT]: false,
