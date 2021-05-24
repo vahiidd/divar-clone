@@ -1,3 +1,5 @@
+# The "Moesif Origin & CORS Changer" chrome extension must be used to run correctly
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
